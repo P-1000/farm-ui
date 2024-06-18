@@ -9,7 +9,9 @@ import HeroAnimated from "components/HeroAnimated";
 import { cn } from "@/lib/utils";
 import heroStyle from "components/HeroNit/hero.module.css";
 import NumberTicker from "components/NumberCounter";
+import { signIn } from "../../../auth";
 import bgback from "../../../public/bg-back.png";
+
 async function getGitHubStars() {
   try {
     const response = await fetch(
@@ -42,7 +44,7 @@ export default async function () {
             }
           >
             <IconGithub />
-            <div className="w-[1px] h-[20px] bg-white/10 inline-flex mx-2 group-hover:bg-white/20" />
+            <div className="w-[16px] h-[20px] bg-white/10 inline-flex mx-2 group-hover:bg-white/20" />
             <span className={cn(heroStyle.magicText)}>
               <Suspense fallback={<></>}>
                 <a href="https://github.com/Kinfe123/farm-ui" target="_blank">
@@ -52,7 +54,7 @@ export default async function () {
                   </span>{" "}
                   stars on Github
                   <ChevronRight className="inline w-4 h-4 ml-1 group-hover:translate-x-1 duration-300" />
-                </a>
+              </a>
               </Suspense>
             </span>
           </h1>
@@ -94,6 +96,7 @@ export default async function () {
             </div>
           </HeroAnimated>
         </div>
+
         <HeroBgGradientClient />
       </section>
       <div className="flex justify-center items-center bg-center overflow-x-hidden w-screen absolute sm:block md:-top-2 right-0 min-h-screen">
@@ -111,5 +114,18 @@ export default async function () {
         </div>
       </div>
     </>
+  );
+}
+
+export function SignIn() {
+  return (
+    <form
+      action={async () => {
+        "use server";
+        await signIn("google");
+      }}
+    >
+      <button type="submit">Signin with Google</button>
+    </form>
   );
 }
